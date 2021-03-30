@@ -19,18 +19,16 @@ class ViewController: UIViewController {
     @IBOutlet weak var passwordReCheckLabel: UILabel!
     @IBOutlet weak var userNameCheckLabel: UILabel!
     
+    private var textFieldDelegate = TextFieldDelegate()
+    @IBOutlet weak var nextButton: UIButton!
+    
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         
-        id.addTarget(self, action: #selector(didEndExit(_:)), for: UIControl.Event.editingDidEndOnExit)
-        password.addTarget(self, action: #selector(didEndExit(_:)), for: UIControl.Event.editingDidEndOnExit)
-        recheckPassword.addTarget(self, action: #selector(didEndExit(_:)), for: UIControl.Event.editingDidEndOnExit)
-        userName.addTarget(self, action: #selector(didEndExit(_:)), for: UIControl.Event.editingDidEndOnExit)
-    }
-    @objc func didEndExit(_ sender: UITextField) {
-        if password.isFirstResponder {
-            userName.becomeFirstResponder()
-        }
+        id.delegate = textFieldDelegate
+        password.delegate = textFieldDelegate
+        recheckPassword.delegate = textFieldDelegate
+        userName.delegate = textFieldDelegate
     }
 }
-
