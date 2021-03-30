@@ -15,6 +15,8 @@
 		D4A0CA7226119DB900C1AA0D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D4A0CA7026119DB900C1AA0D /* LaunchScreen.storyboard */; };
 		D4A0CA7D26119DBA00C1AA0D /* SignUpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A0CA7C26119DBA00C1AA0D /* SignUpTests.swift */; };
 		D4A0CA8826119DBA00C1AA0D /* SignUpUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A0CA8726119DBA00C1AA0D /* SignUpUITests.swift */; };
+		D4A0CA992611BA4400C1AA0D /* ExtensionUiTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A0CA982611BA4400C1AA0D /* ExtensionUiTextField.swift */; };
+		D4A0CA9E2612D93900C1AA0D /* TextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A0CA9D2612D93900C1AA0D /* TextFieldDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +51,8 @@
 		D4A0CA8326119DBA00C1AA0D /* SignUpUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SignUpUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4A0CA8726119DBA00C1AA0D /* SignUpUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpUITests.swift; sourceTree = "<group>"; };
 		D4A0CA8926119DBA00C1AA0D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D4A0CA982611BA4400C1AA0D /* ExtensionUiTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionUiTextField.swift; sourceTree = "<group>"; };
+		D4A0CA9D2612D93900C1AA0D /* TextFieldDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,10 +106,12 @@
 				D4A0CA6526119DB900C1AA0D /* AppDelegate.swift */,
 				D4A0CA6726119DB900C1AA0D /* SceneDelegate.swift */,
 				D4A0CA6926119DB900C1AA0D /* ViewController.swift */,
+				D4A0CA9D2612D93900C1AA0D /* TextFieldDelegate.swift */,
 				D4A0CA6B26119DB900C1AA0D /* Main.storyboard */,
 				D4A0CA6E26119DB900C1AA0D /* Assets.xcassets */,
 				D4A0CA7026119DB900C1AA0D /* LaunchScreen.storyboard */,
 				D4A0CA7326119DB900C1AA0D /* Info.plist */,
+				D4A0CA982611BA4400C1AA0D /* ExtensionUiTextField.swift */,
 			);
 			path = SignUp;
 			sourceTree = "<group>";
@@ -259,6 +265,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				D4A0CA6A26119DB900C1AA0D /* ViewController.swift in Sources */,
+				D4A0CA9E2612D93900C1AA0D /* TextFieldDelegate.swift in Sources */,
+				D4A0CA992611BA4400C1AA0D /* ExtensionUiTextField.swift in Sources */,
 				D4A0CA6626119DB900C1AA0D /* AppDelegate.swift in Sources */,
 				D4A0CA6826119DB900C1AA0D /* SceneDelegate.swift in Sources */,
 			);
