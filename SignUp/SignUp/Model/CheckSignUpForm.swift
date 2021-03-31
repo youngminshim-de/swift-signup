@@ -9,6 +9,7 @@ import UIKit
 
 class CheckSignUpForm {
     static var shared = CheckSignUpForm()
+    
     enum PasswordMessage: String {
         case Range = "8자 이상 16자 이하로 입력해주세요"
         case UpperCase = "영문 대문자를 최소 1자이상 포함해주세요"
@@ -22,9 +23,6 @@ class CheckSignUpForm {
         case Used = "이미 사용중인 아이디입니다."
         case Success = "사용 가능한 아이디입니다."
     }
-
-    private static let idRegEx = "[a-z0-9-_]{5,20}"
-    private static let passwordRegEx = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[$@$!%*?&])(?=.*[0-9])[A-Za-z\\d$@$!%*?&]{8,16}"
     
     func inspectPassword(with password: String) -> Bool{
         var dictionary: [PasswordMessage:PasswordMessage.RawValue] = [:]
@@ -48,6 +46,7 @@ class CheckSignUpForm {
                                             userInfo: [IDMessage.Range:IDMessage.Range.rawValue])
             return false
         }
+        
         NetworkManager.connect() { (names) in
             DispatchQueue.main.async {
                 if names.contains(id) {
@@ -61,6 +60,7 @@ class CheckSignUpForm {
                 }
             }
         }
+        
         return true
     }
     
