@@ -41,19 +41,35 @@ class ViewController: UIViewController {
     
     func setObserver() {
         NotificationCenter.default.addObserver(self, selector: #selector(changePWLabel),
-                                               name: NSNotification.Name(rawValue: "pw"),
+                                               name: NotificationName.password,
+                                               object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(changeIDLabel),
+                                               name: NotificationName.id,
                                                object: nil)
     }
     
     @objc func changePWLabel(_ notificaion: Notification) {
-        if let message = notificaion.userInfo as? [Validate.Message : String] {
+        if let message = notificaion.userInfo as? [CheckSignUpForm.PasswordMessage : String] {
             for (key, text) in message {
-                if key == Validate.Message.Success {
+                if key == CheckSignUpForm.PasswordMessage.Success {
                     passwordCheckLabel.textColor = .green
                 } else {
                     passwordCheckLabel.textColor = .red
                 }
                 passwordCheckLabel.text = text
+            }
+        }
+    }
+    
+    @objc func changeIDLabel(_ notification: Notification) {
+        if let message = notification.userInfo as? [CheckSignUpForm.IDMessage : String] {
+            for (key, text) in message {
+                if key == CheckSignUpForm.IDMessage.Success {
+                    idCheckLabel.textColor = .green
+                } else {
+                    idCheckLabel.textColor = .red
+                }
+                idCheckLabel.text = text
             }
         }
     }
