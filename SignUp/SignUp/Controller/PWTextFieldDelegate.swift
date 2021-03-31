@@ -1,5 +1,5 @@
 //
-//  NameTextFieldDelegate.swift
+//  PWTextFieldDelegate.swift
 //  SignUp
 //
 //  Created by 심영민 on 2021/03/30.
@@ -7,10 +7,12 @@
 
 import UIKit
 
-class NamePWTextFieldDelegate: NSObject, UITextFieldDelegate {
+class PWTextFieldDelegate: NSObject, UITextFieldDelegate {
+    
+    private let checkPW = CheckSignUpForm()
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
+        textField.becomeFirstResponder()
         return true
     }
     
@@ -25,9 +27,9 @@ class NamePWTextFieldDelegate: NSObject, UITextFieldDelegate {
     }
 
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        
         textField.layer.borderWidth = 1
-        if Validate.ID(with: textField.text!) {
+        
+        if checkPW.inspectPassword(with: textField.text!) {
             textField.layer.borderColor = UIColor.green.cgColor
         } else {
             textField.layer.borderColor = UIColor.red.cgColor
