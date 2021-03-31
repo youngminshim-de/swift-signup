@@ -19,16 +19,42 @@ class ViewController: UIViewController {
     @IBOutlet weak var passwordReCheckLabel: UILabel!
     @IBOutlet weak var userNameCheckLabel: UILabel!
     
-    private var textFieldDelegate = TextFieldDelegate()
     @IBOutlet weak var nextButton: UIButton!
+    private var idDelegate = IDTextFieldDelegate()
+    private var pwDelegate = PWTextFieldDelegate()
+    private var recheckPwDelegate = RecheckPWTextFieldDelegate()
+    private var nameDelegate = NamePWTextFieldDelegate()
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        
-        id.delegate = textFieldDelegate
-        password.delegate = textFieldDelegate
-        recheckPassword.delegate = textFieldDelegate
-        userName.delegate = textFieldDelegate
+        setDelegate()
+        setObserver()
+    }
+    
+    func setDelegate() {
+        id.delegate = idDelegate
+        password.delegate = pwDelegate
+        recheckPassword.delegate = recheckPwDelegate
+        userName.delegate = nameDelegate
+    }
+    
+    func setObserver() {
+        NotificationCenter.default.addObserver(self, selector: #selector(changePWLabel),
+                                               name: NSNotification.Name(rawValue: "pw"),
+                                               object: nil)
+    }
+    
+    @objc func changePWLabel(_ notificaion: Notification) {
+        if let message = notificaion.userInfo as? [Validate.Message : String] {
+            for (key, text) in message {
+                if key == Validate.Message.Success {
+                    passwordCheckLabel.textColor = .green
+                } else {
+                    passwordCheckLabel.textColor = .red
+                }
+                passwordCheckLabel.text = text
+            }
+        }
     }
 }
