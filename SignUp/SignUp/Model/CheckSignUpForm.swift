@@ -9,6 +9,14 @@ import UIKit
 
 class CheckSignUpForm {
     static var shared = CheckSignUpForm()
+    private var idList: [String]
+    
+    init() {
+        idList = []
+        NetworkManager.connect() { (list) in
+            self.idList = list
+        }
+    }
     
     enum PasswordMessage: String {
         case Range = "8자 이상 16자 이하로 입력해주세요"
@@ -30,76 +38,45 @@ class CheckSignUpForm {
     }
     
     enum UserNameMessage: String {
-        case Essential = "이름은 필수 입력 항목입니다"
+        case Empty = "이름은 필수 입력 항목입니다"
         case Success = ""
     }
     
-    func inspectPassword(with password: String) -> Bool{
-        var dictionary: [PasswordMessage:PasswordMessage.RawValue] = [:]
-        
-        guard let message = passwordCheck(with: password) else {
-            dictionary = [PasswordMessage.Success : PasswordMessage.Success.rawValue]
-            NotificationCenter.default.post(name: NotificationName.password, object: self, userInfo: dictionary)
-            return true
-        }
-        
-        dictionary = [message: message.rawValue]
-        NotificationCenter.default.post(name: NotificationName.password, object: self, userInfo: dictionary)
-        return false
+    func inspectPassword(with password: String) -> PasswordMessage{
+        return passwordCheck(with: password)
     }
     
-    func reInspectPassword(with password: String, with targetPassword: String) -> Bool {
+    func reInspectPassword(with password: String, with targetPassword: String) -> PasswordRecheckMessage {
         if password == targetPassword {
-            NotificationCenter.default.post(name: NotificationName.password, object: self, userInfo: [PasswordRecheckMessage.Same: PasswordRecheckMessage.Same.rawValue])
-            return true
+            return PasswordRecheckMessage.Same
         } else {
-            NotificationCenter.default.post(name: NotificationName.password, object: self, userInfo: [PasswordRecheckMessage.Different: PasswordRecheckMessage.Different.rawValue])
-            return false
+            return PasswordRecheckMessage.Different
         }
     }
     
-    func inspectID(with id: String) -> Bool {
+    func inspectID(with id: String) -> IDMessage {
         let temp = NSPredicate(format: "SELF MATCHES %@", "[a-z0-9-_]{5,20}")
+        
         if !temp.evaluate(with: id) {
-            NotificationCenter.default.post(name: NotificationName.id
-                                            , object: self,
-                                            userInfo: [IDMessage.Range:IDMessage.Range.rawValue])
-            return false
+            return IDMessage.Range
         }
-        
-        NetworkManager.connect() { (names) in
-            DispatchQueue.main.async {
-                if names.contains(id) {
-                    NotificationCenter.default.post(name: NotificationName.id
-                                                    , object: self,
-                                                    userInfo: [IDMessage.Used:IDMessage.Used.rawValue])
-                } else {
-                    NotificationCenter.default.post(name: NotificationName.id,
-                                                    object: self,
-                                                    userInfo: [IDMessage.Success:IDMessage.Success.rawValue])
-                }
-            }
+        else if idList.contains(id){
+            return IDMessage.Used
+        } else {
+            return IDMessage.Success
         }
-        
-        return true
     }
     
-    func insepctUserName(with name: String) -> Bool {
+    func inspectUserName(with name: String) -> UserNameMessage {
         if name.isEmpty {
-            NotificationCenter.default.post(name: NotificationName.userName,
-                                            object: self,
-                                            userInfo: [UserNameMessage.Essential:UserNameMessage.Essential.rawValue])
-            return false
+            return UserNameMessage.Empty
         }
         else {
-            NotificationCenter.default.post(name: NotificationName.userName,
-                                            object: self,
-                                            userInfo: [UserNameMessage.Success:UserNameMessage.Success.rawValue])
-            return true
+            return UserNameMessage.Success
         }
     }
     
-    private func passwordCheck(with password: String) -> CheckSignUpForm.PasswordMessage? {
+    private func passwordCheck(with password: String) -> PasswordMessage {
         if let message = passwordRange(password) {
             return message
         }
@@ -115,7 +92,7 @@ class CheckSignUpForm {
         if let message = passwordSymbol(password) {
             return message
         }
-        return nil
+        return PasswordMessage.Success
     }
     
     private func passwordUpperCase(_ password: String) -> CheckSignUpForm.PasswordMessage? {

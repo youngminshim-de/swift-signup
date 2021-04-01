@@ -8,6 +8,11 @@
 import UIKit
 
 class NamePWTextFieldDelegate: NSObject, UITextFieldDelegate {
+    private let label: UILabel
+    
+    init(label: UILabel) {
+        self.label = label
+    }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
@@ -16,12 +21,14 @@ class NamePWTextFieldDelegate: NSObject, UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         textField.layer.borderWidth = 1
-        print("눌럿음")
-        if CheckSignUpForm.shared.insepctUserName(with: textField.text!) {
-            textField.layer.borderColor = UIColor.green.cgColor
-        } else {
+       
+        let state = CheckSignUpForm.shared.inspectUserName(with: textField.text!)
+        if state == CheckSignUpForm.UserNameMessage.Empty {
             textField.layer.borderColor = UIColor.red.cgColor
+        } else {
+            textField.layer.borderColor = UIColor.green.cgColor
         }
+        self.label.text = state.rawValue
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
@@ -31,21 +38,16 @@ class NamePWTextFieldDelegate: NSObject, UITextFieldDelegate {
     
     func textFieldDidChangeSelection(_ textField: UITextField) {
         textField.layer.borderWidth = 1
-        if CheckSignUpForm.shared.insepctUserName(with: textField.text!) {
-            textField.layer.borderColor = UIColor.green.cgColor
-        } else {
+        
+        let state = CheckSignUpForm.shared.inspectUserName(with: textField.text!)
+        
+        if state == CheckSignUpForm.UserNameMessage.Empty {
             textField.layer.borderColor = UIColor.red.cgColor
+            self.label.textColor = .red
+        } else {
+            textField.layer.borderColor = UIColor.green.cgColor
+            self.label.textColor = .green
         }
+        self.label.text = state.rawValue
     }
-
-//    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-//        
-//        textField.layer.borderWidth = 1
-//        if CheckSignUpForm.shared.inspectID(with: textField.text!) {
-//            textField.layer.borderColor = UIColor.green.cgColor
-//        } else {
-//            textField.layer.borderColor = UIColor.red.cgColor
-//        }
-//        return true
-//    }
 }

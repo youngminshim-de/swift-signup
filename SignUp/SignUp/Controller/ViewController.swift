@@ -20,16 +20,15 @@ class ViewController: UIViewController {
     @IBOutlet weak var userNameCheckLabel: UILabel!
     
     @IBOutlet weak var nextButton: UIButton!
-    private lazy var idDelegate = IDTextFieldDelegate(nextTextField: password)
-    private lazy var pwDelegate = PWTextFieldDelegate(nextTextField: recheckPassword)
-    private lazy var recheckPwDelegate = RecheckPWTextFieldDelegate(nextTextField: userName, prevTextField: password)
-    private lazy var nameDelegate = NamePWTextFieldDelegate()
+    private lazy var idDelegate = IDTextFieldDelegate(nextTextField: password, label: idCheckLabel)
+    private lazy var pwDelegate = PWTextFieldDelegate(nextTextField: recheckPassword, label: passwordCheckLabel)
+    private lazy var recheckPwDelegate = RecheckPWTextFieldDelegate(nextTextField: userName, prevTextField: password, label: passwordReCheckLabel)
+    private lazy var nameDelegate = NamePWTextFieldDelegate(label: userNameCheckLabel)
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
         setDelegate()
-        setObserver()
     }
     
     func setDelegate() {
@@ -37,73 +36,5 @@ class ViewController: UIViewController {
         password.delegate = pwDelegate
         recheckPassword.delegate = recheckPwDelegate
         userName.delegate = nameDelegate
-    }
-    
-    func setObserver() {
-        NotificationCenter.default.addObserver(self, selector: #selector(changePWLabel),
-                                               name: NotificationName.password,
-                                               object: CheckSignUpForm.shared)
-        NotificationCenter.default.addObserver(self, selector: #selector(changeIDLabel),
-                                               name: NotificationName.id,
-                                               object: CheckSignUpForm.shared)
-        NotificationCenter.default.addObserver(self, selector: #selector(changeRecheckPWLabel),
-                                               name: NotificationName.password,
-                                               object: CheckSignUpForm.shared)
-        NotificationCenter.default.addObserver(self, selector: #selector(changeUserNameLabel),
-                                               name: NotificationName.userName,
-                                               object: CheckSignUpForm.shared)
-    }
-    
-    @objc func changePWLabel(_ notificaion: Notification) {
-        if let message = notificaion.userInfo as? [CheckSignUpForm.PasswordMessage : String] {
-            for (key, text) in message {
-                if key == CheckSignUpForm.PasswordMessage.Success {
-                    passwordCheckLabel.textColor = .green
-                } else {
-                    passwordCheckLabel.textColor = .red
-                }
-                passwordCheckLabel.text = text
-            }
-        }
-    }
-    
-    @objc func changeIDLabel(_ notification: Notification) {
-        if let message = notification.userInfo as? [CheckSignUpForm.IDMessage : String] {
-            for (key, text) in message {
-                if key == CheckSignUpForm.IDMessage.Success {
-                    idCheckLabel.textColor = .green
-                } else {
-                    idCheckLabel.textColor = .red
-                }
-                idCheckLabel.text = text
-            }
-        }
-    }
-    
-    @objc func changeRecheckPWLabel(_ notification: Notification) {
-        if let message = notification.userInfo as? [CheckSignUpForm.PasswordRecheckMessage : String] {
-            for (key, text) in message {
-                if key == CheckSignUpForm.PasswordRecheckMessage.Same {
-                    passwordReCheckLabel.textColor = .green
-                } else {
-                    passwordReCheckLabel.textColor = .red
-                }
-                passwordReCheckLabel.text = text
-            }
-        }
-    }
-    
-    @objc func changeUserNameLabel(_ notification: Notification) {
-        if let message = notification.userInfo as? [CheckSignUpForm.UserNameMessage : String] {
-            for (key, text) in message {
-                if key == CheckSignUpForm.UserNameMessage.Essential {
-                    print(key, text)
-                    userNameCheckLabel.textColor = .red
-                    userNameCheckLabel.text = text
-                } else {
-                    userNameCheckLabel.text = text
-                }
-            }
-        }
     }
 }
