@@ -15,6 +15,7 @@ class RecheckPWTextFieldDelegate: NSObject, UITextFieldDelegate {
         self.nextTextField = nextTextField
         self.prevTextField = prevTextField
     }
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         nextTextField.becomeFirstResponder()
         return true
