@@ -15,13 +15,18 @@ class CheckSignUpForm {
         case UpperCase = "영문 대문자를 최소 1자이상 포함해주세요"
         case Number = "숫자를 최소 1자 이상 포함해주세요"
         case Character = "특수문자를 최소 1자 이상 포함해주세요"
-        case Success = "안전한 비밀번호입니다."
+        case Success = "안전한 비밀번호입니다"
     }
     
     enum IDMessage: String {
         case Range = "5자이상 20자 이하로 입력해주세요"
-        case Used = "이미 사용중인 아이디입니다."
-        case Success = "사용 가능한 아이디입니다."
+        case Used = "이미 사용중인 아이디입니다"
+        case Success = "사용 가능한 아이디입니다"
+    }
+    
+    enum PasswordRecheckMessage: String {
+        case Same = "비밀번호가 일치합니다"
+        case Different = "비밀번호가 일치하지 않습니다."
     }
     
     func inspectPassword(with password: String) -> Bool{
@@ -38,11 +43,21 @@ class CheckSignUpForm {
         return false
     }
     
+    func reInspectPassword(with password: String, with targetPassword: String) -> Bool {
+        if password == targetPassword {
+            NotificationCenter.default.post(name: NotificationName.password, object: self, userInfo: [PasswordRecheckMessage.Same: PasswordRecheckMessage.Same.rawValue])
+            return true
+        } else {
+            NotificationCenter.default.post(name: NotificationName.password, object: self, userInfo: [PasswordRecheckMessage.Different: PasswordRecheckMessage.Different.rawValue])
+            return false
+        }
+    }
+    
     func inspectID(with id: String) -> Bool {
         let temp = NSPredicate(format: "SELF MATCHES %@", "[a-z0-9-_]{5,20}")
         if !temp.evaluate(with: id) {
             NotificationCenter.default.post(name: NotificationName.id
-                                            , object: nil,
+                                            , object: self,
                                             userInfo: [IDMessage.Range:IDMessage.Range.rawValue])
             return false
         }
@@ -51,11 +66,11 @@ class CheckSignUpForm {
             DispatchQueue.main.async {
                 if names.contains(id) {
                     NotificationCenter.default.post(name: NotificationName.id
-                                                    , object: nil,
+                                                    , object: self,
                                                     userInfo: [IDMessage.Used:IDMessage.Used.rawValue])
                 } else {
                     NotificationCenter.default.post(name: NotificationName.id,
-                                                    object: nil,
+                                                    object: self,
                                                     userInfo: [IDMessage.Success:IDMessage.Success.rawValue])
                 }
             }

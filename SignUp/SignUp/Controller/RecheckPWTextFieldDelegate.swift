@@ -8,9 +8,15 @@
 import UIKit
 
 class RecheckPWTextFieldDelegate: NSObject, UITextFieldDelegate {
+    private let nextTextField: UITextField
+    private let prevTextField: UITextField
     
+    init(nextTextField: UITextField, prevTextField: UITextField) {
+        self.nextTextField = nextTextField
+        self.prevTextField = prevTextField
+    }
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.becomeFirstResponder()
+        nextTextField.becomeFirstResponder()
         return true
     }
     
@@ -23,15 +29,24 @@ class RecheckPWTextFieldDelegate: NSObject, UITextFieldDelegate {
         textField.layer.borderWidth = 1
         textField.layer.borderColor = UIColor.black.cgColor
     }
-
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        
+    
+    func textFieldDidChangeSelection(_ textField: UITextField) {
         textField.layer.borderWidth = 1
-        if CheckSignUpForm.shared.inspectID(with: textField.text!) {
+        if CheckSignUpForm.shared.reInspectPassword(with: prevTextField.text!, with: textField.text!) {
             textField.layer.borderColor = UIColor.green.cgColor
         } else {
             textField.layer.borderColor = UIColor.red.cgColor
         }
-        return true
     }
+
+//    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+//        
+//        textField.layer.borderWidth = 1
+//        if CheckSignUpForm.shared.reInspectPassword(with: prevTextField.text!, with: textField.text!) {
+//            textField.layer.borderColor = UIColor.green.cgColor
+//        } else {
+//            textField.layer.borderColor = UIColor.red.cgColor
+//        }
+//        return true
+//    }
 }

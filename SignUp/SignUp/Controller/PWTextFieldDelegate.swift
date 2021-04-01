@@ -8,9 +8,14 @@
 import UIKit
 
 class PWTextFieldDelegate: NSObject, UITextFieldDelegate {
+    private let nextTextField: UITextField
+    
+    init(nextTextField: UITextField) {
+        self.nextTextField = nextTextField
+    }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.becomeFirstResponder()
+        nextTextField.becomeFirstResponder()
         return true
     }
     
@@ -23,8 +28,8 @@ class PWTextFieldDelegate: NSObject, UITextFieldDelegate {
         textField.layer.borderWidth = 1
         textField.layer.borderColor = UIColor.black.cgColor
     }
-
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+    
+    func textFieldDidChangeSelection(_ textField: UITextField) {
         textField.layer.borderWidth = 1
         
         if CheckSignUpForm.shared.inspectPassword(with: textField.text!) {
@@ -32,6 +37,17 @@ class PWTextFieldDelegate: NSObject, UITextFieldDelegate {
         } else {
             textField.layer.borderColor = UIColor.red.cgColor
         }
-        return true
+        
     }
+
+//    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+//        textField.layer.borderWidth = 1
+//
+//        if CheckSignUpForm.shared.inspectPassword(with: textField.text!) {
+//            textField.layer.borderColor = UIColor.green.cgColor
+//        } else {
+//            textField.layer.borderColor = UIColor.red.cgColor
+//        }
+//        return true
+//    }
 }
