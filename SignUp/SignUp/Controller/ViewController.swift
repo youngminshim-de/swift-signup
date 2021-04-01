@@ -20,10 +20,10 @@ class ViewController: UIViewController {
     @IBOutlet weak var userNameCheckLabel: UILabel!
     
     @IBOutlet weak var nextButton: UIButton!
-    private var idDelegate = IDTextFieldDelegate()
-    private var pwDelegate = PWTextFieldDelegate()
-    private var recheckPwDelegate = RecheckPWTextFieldDelegate()
-    private var nameDelegate = NamePWTextFieldDelegate()
+    private lazy var idDelegate = IDTextFieldDelegate(nextTextField: password)
+    private lazy var pwDelegate = PWTextFieldDelegate(nextTextField: recheckPassword)
+    private lazy var recheckPwDelegate = RecheckPWTextFieldDelegate(nextTextField: userName, prevTextField: password)
+    private lazy var nameDelegate = NamePWTextFieldDelegate()
     
     override func viewDidLoad() {
         
@@ -42,10 +42,13 @@ class ViewController: UIViewController {
     func setObserver() {
         NotificationCenter.default.addObserver(self, selector: #selector(changePWLabel),
                                                name: NotificationName.password,
-                                               object: nil)
+                                               object: CheckSignUpForm.shared)
         NotificationCenter.default.addObserver(self, selector: #selector(changeIDLabel),
                                                name: NotificationName.id,
-                                               object: nil)
+                                               object: CheckSignUpForm.shared)
+        NotificationCenter.default.addObserver(self, selector: #selector(changeRecheckPWLabel),
+                                               name: NotificationName.password,
+                                               object: CheckSignUpForm.shared)
     }
     
     @objc func changePWLabel(_ notificaion: Notification) {
@@ -70,6 +73,19 @@ class ViewController: UIViewController {
                     idCheckLabel.textColor = .red
                 }
                 idCheckLabel.text = text
+            }
+        }
+    }
+    
+    @objc func changeRecheckPWLabel(_ notification: Notification) {
+        if let message = notification.userInfo as? [CheckSignUpForm.PasswordRecheckMessage : String] {
+            for (key, text) in message {
+                if key == CheckSignUpForm.PasswordRecheckMessage.Same {
+                    passwordReCheckLabel.textColor = .green
+                } else {
+                    passwordReCheckLabel.textColor = .red
+                }
+                passwordReCheckLabel.text = text
             }
         }
     }
