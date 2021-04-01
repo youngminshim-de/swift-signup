@@ -26,7 +26,12 @@ class CheckSignUpForm {
     
     enum PasswordRecheckMessage: String {
         case Same = "비밀번호가 일치합니다"
-        case Different = "비밀번호가 일치하지 않습니다."
+        case Different = "비밀번호가 일치하지 않습니다"
+    }
+    
+    enum UserNameMessage: String {
+        case Essential = "이름은 필수 입력 항목입니다"
+        case Success = ""
     }
     
     func inspectPassword(with password: String) -> Bool{
@@ -77,6 +82,21 @@ class CheckSignUpForm {
         }
         
         return true
+    }
+    
+    func insepctUserName(with name: String) -> Bool {
+        if name.isEmpty {
+            NotificationCenter.default.post(name: NotificationName.userName,
+                                            object: self,
+                                            userInfo: [UserNameMessage.Essential:UserNameMessage.Essential.rawValue])
+            return false
+        }
+        else {
+            NotificationCenter.default.post(name: NotificationName.userName,
+                                            object: self,
+                                            userInfo: [UserNameMessage.Success:UserNameMessage.Success.rawValue])
+            return true
+        }
     }
     
     private func passwordCheck(with password: String) -> CheckSignUpForm.PasswordMessage? {

@@ -9,4 +9,5 @@ import Foundation
 enum NotificationName {
     static let id = Foundation.Notification.Name("idCheck")
     static let password = Foundation.Notification.Name("passwordCheck")
+    static let userName = Foundation.Notification.Name("userNameCheck")
 }
