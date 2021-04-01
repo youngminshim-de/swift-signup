@@ -8,7 +8,8 @@
 import UIKit
 
 class NetworkManager {
-    static func connect(handler: @escaping ([String]) -> Void) {
+    
+    private func receive(handler: @escaping (Data) -> Void) {
         
         guard let url = URL(string: "https://8r6ruzgzve.execute-api.ap-northeast-2.amazonaws.com/default/SwiftCamp") else {
             return
@@ -16,11 +17,19 @@ class NetworkManager {
         
         let session = URLSession.shared
         session.dataTask(with: url) { (data, response, error) in
-            guard let data = data,
-                  let userResponse = try? JSONSerialization.jsonObject(with: data, options: []) as? [String] else {
+            guard let data = data else {
                 return
             }
-            handler(userResponse)
+            handler(data)
         }.resume()
+    }
+    
+    func serialization(handler: @escaping ([String])-> Void) {
+        receive() { (data) in
+            guard let list = try? JSONSerialization.jsonObject(with: data, options: []) as? [String] else {
+                return
+            }
+        handler(list)
+        }
     }
 }

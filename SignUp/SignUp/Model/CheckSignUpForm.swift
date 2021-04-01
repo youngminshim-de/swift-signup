@@ -9,11 +9,10 @@ import UIKit
 
 class CheckSignUpForm {
     static var shared = CheckSignUpForm()
-    private var idList: [String]
+    private var idList: [String] = []
     
     init() {
-        idList = []
-        NetworkManager.connect() { (list) in
+        NetworkManager().serialization() { (list) in
             self.idList = list
         }
     }
