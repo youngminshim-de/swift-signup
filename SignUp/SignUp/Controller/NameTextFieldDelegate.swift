@@ -16,7 +16,12 @@ class NamePWTextFieldDelegate: NSObject, UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         textField.layer.borderWidth = 1
-        textField.layer.borderColor = UIColor.blue.cgColor
+        print("눌럿음")
+        if CheckSignUpForm.shared.insepctUserName(with: textField.text!) {
+            textField.layer.borderColor = UIColor.green.cgColor
+        } else {
+            textField.layer.borderColor = UIColor.red.cgColor
+        }
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
@@ -26,7 +31,7 @@ class NamePWTextFieldDelegate: NSObject, UITextFieldDelegate {
     
     func textFieldDidChangeSelection(_ textField: UITextField) {
         textField.layer.borderWidth = 1
-        if CheckSignUpForm.shared.inspectID(with: textField.text!) {
+        if CheckSignUpForm.shared.insepctUserName(with: textField.text!) {
             textField.layer.borderColor = UIColor.green.cgColor
         } else {
             textField.layer.borderColor = UIColor.red.cgColor

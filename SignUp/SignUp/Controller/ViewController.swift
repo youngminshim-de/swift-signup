@@ -49,6 +49,9 @@ class ViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(changeRecheckPWLabel),
                                                name: NotificationName.password,
                                                object: CheckSignUpForm.shared)
+        NotificationCenter.default.addObserver(self, selector: #selector(changeUserNameLabel),
+                                               name: NotificationName.userName,
+                                               object: CheckSignUpForm.shared)
     }
     
     @objc func changePWLabel(_ notificaion: Notification) {
@@ -86,6 +89,20 @@ class ViewController: UIViewController {
                     passwordReCheckLabel.textColor = .red
                 }
                 passwordReCheckLabel.text = text
+            }
+        }
+    }
+    
+    @objc func changeUserNameLabel(_ notification: Notification) {
+        if let message = notification.userInfo as? [CheckSignUpForm.UserNameMessage : String] {
+            for (key, text) in message {
+                if key == CheckSignUpForm.UserNameMessage.Essential {
+                    print(key, text)
+                    userNameCheckLabel.textColor = .red
+                    userNameCheckLabel.text = text
+                } else {
+                    userNameCheckLabel.text = text
+                }
             }
         }
     }
