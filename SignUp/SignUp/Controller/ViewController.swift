@@ -33,7 +33,7 @@ class ViewController: UIViewController {
         setDelegate()
     }
     
-    func setDelegate() {
+    private func setDelegate() {
         id.delegate = idDelegate
         password.delegate = pwDelegate
         recheckPassword.delegate = recheckPwDelegate

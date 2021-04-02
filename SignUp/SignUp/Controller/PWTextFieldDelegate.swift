@@ -48,7 +48,7 @@ class PWTextFieldDelegate: NSObject, UITextFieldDelegate {
         self.label.text = state?.rawValue
     }
     
-    func inspect(with inspector: Inspectable, password: String) -> InspectPassword.PasswordMessage?{
+    private func inspect(with inspector: Inspectable, password: String) -> InspectPassword.PasswordMessage?{
         guard let message = inspector.inspect?(with: password) as? InspectPassword.PasswordMessage else {
             return nil
         }

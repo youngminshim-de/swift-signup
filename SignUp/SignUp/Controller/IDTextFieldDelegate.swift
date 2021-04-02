@@ -47,7 +47,7 @@ class IDTextFieldDelegate: NSObject, UITextFieldDelegate {
         self.label.text = state?.rawValue
     }
     
-    func inspect(with inspector : Inspectable, id: String) -> InspectID.IDMessage?{
+    private func inspect(with inspector : Inspectable, id: String) -> InspectID.IDMessage?{
         guard let message = inspector.inspect?(with: id) as? InspectID.IDMessage else {
             return nil
         }
