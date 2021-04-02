@@ -10,6 +10,7 @@ import UIKit
 class IDTextFieldDelegate: NSObject, UITextFieldDelegate {
     private let nextTextField: UITextField
     private let label: UILabel
+    private let inspector = InspectID()
     
     init(nextTextField: UITextField, label: UILabel) {
         self.nextTextField = nextTextField
@@ -34,16 +35,22 @@ class IDTextFieldDelegate: NSObject, UITextFieldDelegate {
     func textFieldDidChangeSelection(_ textField: UITextField) {
         textField.layer.borderWidth = 1
         
-        let state = CheckSignUpForm.shared.inspectID(with: textField.text!)
+        let state = inspect(with: inspector, id: textField.text ?? "")
         
-        if state == CheckSignUpForm.IDMessage.Success {
+        if state == InspectID.IDMessage.Success {
             textField.layer.borderColor = UIColor.green.cgColor
             self.label.textColor = .green
         } else {
             textField.layer.borderColor = UIColor.red.cgColor
             self.label.textColor = .red
         }
-        self.label.text = state.rawValue
-
+        self.label.text = state?.rawValue
+    }
+    
+    func inspect(with inspector : Inspectable, id: String) -> InspectID.IDMessage?{
+        guard let message = inspector.inspect?(with: id) as? InspectID.IDMessage else {
+            return nil
+        }
+        return message
     }
 }

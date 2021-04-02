@@ -10,7 +10,6 @@ import UIKit
 class NetworkManager {
     
     private func receive(handler: @escaping (Data) -> Void) {
-        
         guard let url = URL(string: "https://8r6ruzgzve.execute-api.ap-northeast-2.amazonaws.com/default/SwiftCamp") else {
             return
         }
@@ -29,7 +28,7 @@ class NetworkManager {
             guard let list = try? JSONSerialization.jsonObject(with: data, options: []) as? [String] else {
                 return
             }
-        handler(list)
+            handler(list)
         }
     }
 }
