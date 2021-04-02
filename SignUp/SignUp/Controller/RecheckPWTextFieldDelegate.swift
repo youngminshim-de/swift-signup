@@ -49,7 +49,7 @@ class RecheckPWTextFieldDelegate: NSObject, UITextFieldDelegate {
         self.label.text = state?.rawValue
     }
     
-    func inspect(with inspector: Inspectable, password: String, targetPassword: String) -> InspectRecheckPassword.PasswordRecheckMessage? {
+    private func inspect(with inspector: Inspectable, password: String, targetPassword: String) -> InspectRecheckPassword.PasswordRecheckMessage? {
         guard let message = inspector.inspect?(with: password, with: targetPassword) as? InspectRecheckPassword.PasswordRecheckMessage else {
             return nil
         }

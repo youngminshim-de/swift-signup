@@ -55,7 +55,7 @@ class NamePWTextFieldDelegate: NSObject, UITextFieldDelegate {
         self.label.text = state?.rawValue
     }
     
-    func inspect(with inspector: Inspectable, userName: String) -> InspectUserName.UserNameMessage?{
+    private func inspect(with inspector: Inspectable, userName: String) -> InspectUserName.UserNameMessage?{
         guard let message = inspector.inspect?(with: userName) as? InspectUserName.UserNameMessage else {
             return nil
         }
