@@ -16,7 +16,7 @@
 		D4A0CA7D26119DBA00C1AA0D /* SignUpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A0CA7C26119DBA00C1AA0D /* SignUpTests.swift */; };
 		D4A0CA8826119DBA00C1AA0D /* SignUpUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A0CA8726119DBA00C1AA0D /* SignUpUITests.swift */; };
 		D4A0CA9E2612D93900C1AA0D /* IDTextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A0CA9D2612D93900C1AA0D /* IDTextFieldDelegate.swift */; };
-		D4A5169F2612E943001CFCE3 /* CheckSignUpForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A5169E2612E943001CFCE3 /* CheckSignUpForm.swift */; };
+		D4A5169F2612E943001CFCE3 /* InspectSignUpForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A5169E2612E943001CFCE3 /* InspectSignUpForm.swift */; };
 		D4A516AA2613367D001CFCE3 /* PWTextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A516A92613367D001CFCE3 /* PWTextFieldDelegate.swift */; };
 		D4A516AF261336D4001CFCE3 /* RecheckPWTextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A516AE261336D4001CFCE3 /* RecheckPWTextFieldDelegate.swift */; };
 		D4A516B426133705001CFCE3 /* NameTextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A516B326133705001CFCE3 /* NameTextFieldDelegate.swift */; };
@@ -57,7 +57,7 @@
 		D4A0CA8726119DBA00C1AA0D /* SignUpUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpUITests.swift; sourceTree = "<group>"; };
 		D4A0CA8926119DBA00C1AA0D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D4A0CA9D2612D93900C1AA0D /* IDTextFieldDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDTextFieldDelegate.swift; sourceTree = "<group>"; };
-		D4A5169E2612E943001CFCE3 /* CheckSignUpForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckSignUpForm.swift; sourceTree = "<group>"; };
+		D4A5169E2612E943001CFCE3 /* InspectSignUpForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectSignUpForm.swift; sourceTree = "<group>"; };
 		D4A516A92613367D001CFCE3 /* PWTextFieldDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PWTextFieldDelegate.swift; sourceTree = "<group>"; };
 		D4A516AE261336D4001CFCE3 /* RecheckPWTextFieldDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecheckPWTextFieldDelegate.swift; sourceTree = "<group>"; };
 		D4A516B326133705001CFCE3 /* NameTextFieldDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameTextFieldDelegate.swift; sourceTree = "<group>"; };
@@ -146,7 +146,7 @@
 		D4BFB74D2614612400D68297 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				D4A5169E2612E943001CFCE3 /* CheckSignUpForm.swift */,
+				D4A5169E2612E943001CFCE3 /* InspectSignUpForm.swift */,
 				D4BFB748261458C500D68297 /* NetworkManager.swift */,
 				D4BFB74E2614615000D68297 /* NotificationNameExtension.swift */,
 			);
@@ -299,7 +299,7 @@
 				D4A516AA2613367D001CFCE3 /* PWTextFieldDelegate.swift in Sources */,
 				D4BFB749261458C500D68297 /* NetworkManager.swift in Sources */,
 				D4A0CA9E2612D93900C1AA0D /* IDTextFieldDelegate.swift in Sources */,
-				D4A5169F2612E943001CFCE3 /* CheckSignUpForm.swift in Sources */,
+				D4A5169F2612E943001CFCE3 /* InspectSignUpForm.swift in Sources */,
 				D4A0CA6626119DB900C1AA0D /* AppDelegate.swift in Sources */,
 				D4BFB74F2614615000D68297 /* NotificationNameExtension.swift in Sources */,
 				D4A516B426133705001CFCE3 /* NameTextFieldDelegate.swift in Sources */,

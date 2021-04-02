@@ -28,6 +28,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        password.isSecureTextEntry = true
+        recheckPassword.isSecureTextEntry = true
         setDelegate()
     }
     
