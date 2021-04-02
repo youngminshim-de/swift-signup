@@ -8,6 +8,7 @@
 import UIKit
 
 class NamePWTextFieldDelegate: NSObject, UITextFieldDelegate {
+
     private let label: UILabel
     private let inspector = InspectUserName()
     

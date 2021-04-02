@@ -20,6 +20,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var userNameCheckLabel: UILabel!
     
     @IBOutlet weak var nextButton: UIButton!
+
     private lazy var idDelegate = IDTextFieldDelegate(nextTextField: password, label: idCheckLabel)
     private lazy var pwDelegate = PWTextFieldDelegate(nextTextField: recheckPassword, label: passwordCheckLabel)
     private lazy var recheckPwDelegate = RecheckPWTextFieldDelegate(nextTextField: userName, prevTextField: password, label: passwordReCheckLabel)
@@ -28,6 +29,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         
         super.viewDidLoad()
+
         password.isSecureTextEntry = true
         recheckPassword.isSecureTextEntry = true
         setDelegate()

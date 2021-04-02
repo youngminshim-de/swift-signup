@@ -8,14 +8,17 @@
 import UIKit
 
 class NetworkManager {
+
     
     private func receive(handler: @escaping (Data) -> Void) {
+
         guard let url = URL(string: "https://8r6ruzgzve.execute-api.ap-northeast-2.amazonaws.com/default/SwiftCamp") else {
             return
         }
         
         let session = URLSession.shared
         session.dataTask(with: url) { (data, response, error) in
+
             guard let data = data else {
                 return
             }

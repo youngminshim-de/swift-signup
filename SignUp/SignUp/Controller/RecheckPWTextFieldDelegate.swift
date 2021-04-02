@@ -8,6 +8,7 @@
 import UIKit
 
 class RecheckPWTextFieldDelegate: NSObject, UITextFieldDelegate {
+
     private let nextTextField: UITextField
     private let prevTextField: UITextField
     private let label: UILabel

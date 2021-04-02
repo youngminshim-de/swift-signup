@@ -8,6 +8,7 @@
 import UIKit
 
 class PWTextFieldDelegate: NSObject, UITextFieldDelegate {
+
     private let nextTextField: UITextField
     private let label: UILabel
     private let inspector = InspectPassword()
